@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'workers'], function () {
+    Route::get('/', 'WorkerController@index');
+    Route::get('/{id}', 'WorkerController@show');
+    Route::post('/', 'WorkerController@store');
+    Route::put('/{id}', 'WorkerController@update');
+    Route::delete('/{id}', 'WorkerController@destroy');
+});
+
+Route::group(['prefix' => 'shifts'], function () {
+    Route::get('/', 'ShiftController@index');
+    Route::get('/{id}', 'ShiftController@show');
+    Route::post('/', 'ShiftController@store');
+    Route::put('/{id}', 'ShiftController@update');
+    Route::delete('/{id}', 'ShiftController@destroy');
 });
